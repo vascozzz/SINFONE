@@ -16,6 +16,9 @@ app.set('view engine', 'hbs');
 // register partials
 hbs.registerPartials('./views/partials/');
 
+// set app.locals (template globals) and register them on hbs
+app.locals.server_root = "http://localhost:3000";
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
