@@ -4,17 +4,50 @@ var request = require('request');
 
 var utils = {"root":"http://localhost:3000/"}
 
+// get GET params: req.query
+// get POST params: req.body
+// get url params: req.params
+
 
 // GET homepage
 router.get("/", function(req, res) 
 {    
+    session = req.session;
+    
     request({
         url: "http://localhost:49822/api/artigos",
         method: "GET",
         json: true
     },
     function(error, response, body) {
-        res.render("index", {utils: utils, products: body});
+        res.render("index", {utils: utils, session: session, products: body});
+    });  
+});
+
+
+// GET search
+router.get("/search", function(req, res) 
+{    
+    session = req.session;
+    
+    request({
+        url: "http://localhost:49822/api/artigos",
+        method: "GET",
+        json: true
+    },
+    function(error, response, body) {
+        
+        var products = [];
+        
+        // should filter here
+        var q = req.query.q.toLowerCase();
+        
+        for (var i = 0; i < body.length; i++) {
+            if (body[i].DescArtigo.toLowerCase().indexOf(q) > -1)
+                products.push(body[i]);    
+        }
+        
+        res.render("search", {utils: utils, session: session, products: products});
     });  
 });
 
@@ -22,6 +55,8 @@ router.get("/", function(req, res)
 // GET product detail
 router.get("/product/:id", function(req, res) 
 {
+    session = req.session;
+    
     request({
         url: "http://localhost:49822/api/artigos/" + req.params.id,
         method: "GET",
@@ -33,7 +68,7 @@ router.get("/product/:id", function(req, res)
             res.render('error', {utils: utils, message: "Product not found!", error: {}});
         }
         else {
-            res.render("product-detail", {utils: utils, product: body});
+            res.render("product-detail", {utils: utils, session: session, product: body});
         }       
     }); 
 });
@@ -57,7 +92,7 @@ router.post("/login", function(req, res)
     }
     else {
         req.session.username = req.body.username;
-        res.redirect("/expm");
+        res.redirect("/");
     }
 });
 
@@ -71,20 +106,6 @@ router.get("/logout", function(req, res)
         }
         res.redirect("/");
     });
-});
-
-
-// GET experiment
-router.get("/expm", function(req, res) 
-{
-    session = req.session;
-    
-    if (!session.username) {
-        res.send("not logged in");
-    }
-    else {
-       res.send("hellooooo, " + session.username); 
-    }
 });
 
 

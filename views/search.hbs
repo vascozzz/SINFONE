@@ -1,0 +1,18 @@
+<section>
+    <div class="container">
+        <div class="row">
+            
+            {{> sidebar}}
+
+            <div class="col-sm-9 padding-right">        
+                <div class="features_items">
+                    <h2 class="title text-center">Featured Items</h2>
+                    
+                    {{#each products}}
+                         {{DescArtigo}} <br/>
+                    {{/each}}                  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
