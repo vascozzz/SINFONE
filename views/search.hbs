@@ -9,8 +9,22 @@
                     <h2 class="title text-center">Featured Items</h2>
                     
                     {{#each products}}
-                         {{DescArtigo}} <br/>
-                    {{/each}}                  
+                         {{DescArtigo}} - {{pvp1}} <br/>
+                    {{/each}} 
+                    
+                    <hr/>
+                    
+                    {{#if search.q}}
+                        <i> Filtering by keyword/s: {{search.q}} </i> <br/>
+                    {{/if}}
+                    
+                    {{#if search.min}}
+                        <i> Filtering by min: {{search.min}} </i> <br/>
+                    {{/if}}
+                    
+                    {{#if search.max}}
+                        <i> Filtering by max: {{search.max}} </i> <br/>
+                    {{/if}}
                 </div>
             </div>
         </div>

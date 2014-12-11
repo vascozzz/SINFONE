@@ -117,7 +117,12 @@
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
                         <form action="{{utils.root}}search" method="get">
-                            <input type="text" placeholder="Search" name="q" required/>
+                            {{#if search.q}}
+                                <input type="text" placeholder="{{search.q}}" name="q" required/>
+                            {{else}}
+                                <input type="text" placeholder="Search..." name="q" required/>
+                            {{/if}}
+                            
                             <button type="submit" class="btn btn-default">search</button>
                         </form>
                     </div>

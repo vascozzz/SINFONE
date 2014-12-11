@@ -4,9 +4,19 @@ var request = require('request');
 
 var utils = {"root":"http://localhost:3000/"}
 
+
 // get GET params: req.query
 // get POST params: req.body
 // get url params: req.params
+
+
+// TODO all these methods should be in their appropriate files
+// TODO for now, util methods will be going here as well
+
+function containsString(original, search)
+{
+    return original.toLowerCase().indexOf(search.toLowerCase()) > -1;
+}
 
 
 // GET homepage
@@ -35,19 +45,37 @@ router.get("/search", function(req, res)
         method: "GET",
         json: true
     },
-    function(error, response, body) {
-        
+    function(error, response, body) {       
         var products = [];
-        
-        // should filter here
-        var q = req.query.q.toLowerCase();
+          
+        var q = req.query.q;
+        var min = req.query.min;
+        var max = req.query.max;
         
         for (var i = 0; i < body.length; i++) {
-            if (body[i].DescArtigo.toLowerCase().indexOf(q) > -1)
-                products.push(body[i]);    
-        }
         
-        res.render("search", {utils: utils, session: session, products: products});
+            // for each filter, if it set and does not match, product can't be added
+            if (q && !containsString(body[i].DescArtigo, q)) {
+                continue;
+            }
+                
+            if (min && body[i].pvp1 < min) {
+                continue;
+            }   
+        
+            if (max && body[i].pvp1 > max) {
+                continue;
+            }  
+            
+            // if we get here, there were no filters against it and product can now be added
+            products.push(body[i]);   
+        }
+            
+        // group all filters into a single variable so it can be passed onto the view
+        var search = {"q": q, "min": min, "max": max};
+        console.log(search);
+        
+        res.render("search", {utils: utils, session: session, search: search, products: products});
     });  
 });
 
