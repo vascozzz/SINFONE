@@ -37,6 +37,7 @@ app.use(session({
 
 // routes
 var routes = require('./routes/index');
+var products = require('./routes/products');
 var users = require('./routes/users');
 
 app.use('/', routes);

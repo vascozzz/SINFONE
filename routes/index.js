@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var utils = {"root":"http://localhost:3000/"}
+var utils_test = require('../handlers/utils.js');
+
+var utils = {"root":"http://localhost:3000/", alerts: ""}
 
 
 // get GET params: req.query
@@ -23,6 +25,8 @@ function containsString(original, search)
 router.get("/", function(req, res) 
 {    
     session = req.session;
+    
+    console.log(utils_test.utils);
     
     request({
         url: "http://localhost:49822/api/artigos",
