@@ -1,130 +1,69 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-
-var utils_test = require('../handlers/utils.js');
-
-var utils = {"root":"http://localhost:3000/", alerts: ""}
+var utils = require('../handlers/utils.js');
 
 
-// get GET params: req.query
-// get POST params: req.body
-// get url params: req.params
-
-
-// TODO all these methods should be in their appropriate files
-// TODO for now, util methods will be going here as well
-
-function containsString(original, search)
-{
-    return original.toLowerCase().indexOf(search.toLowerCase()) > -1;
-}
+/* For reference and ease of use, gettings params from requests:
+ * GET params: req.query
+ * POST params: req.body
+ * URL params: req.params
+ */
 
 
 // GET homepage
 router.get("/", function(req, res) 
 {    
-    session = req.session;
-    
-    console.log(utils_test.utils);
-    
     request({
         url: "http://localhost:49822/api/artigos",
         method: "GET",
         json: true
     },
     function(error, response, body) {
-        res.render("index", {utils: utils, session: session, products: body});
+        res.render("index", {
+            utils: utils.globals, 
+            session: req.session, 
+            alert: utils.handleAlerts(req),
+            products: body
+        });
     });  
-});
-
-
-// GET search
-router.get("/search", function(req, res) 
-{    
-    session = req.session;
-    
-    request({
-        url: "http://localhost:49822/api/artigos",
-        method: "GET",
-        json: true
-    },
-    function(error, response, body) {       
-        var products = [];
-          
-        var q = req.query.q;
-        var min = req.query.min;
-        var max = req.query.max;
-        
-        for (var i = 0; i < body.length; i++) {
-        
-            // for each filter, if it set and does not match, product can't be added
-            if (q && !containsString(body[i].DescArtigo, q)) {
-                continue;
-            }
-                
-            if (min && body[i].pvp1 < min) {
-                continue;
-            }   
-        
-            if (max && body[i].pvp1 > max) {
-                continue;
-            }  
-            
-            // if we get here, there were no filters against it and product can now be added
-            products.push(body[i]);   
-        }
-            
-        // group all filters into a single variable so it can be passed onto the view
-        var search = {"q": q, "min": min, "max": max};
-        console.log(search);
-        
-        res.render("search", {utils: utils, session: session, search: search, products: products});
-    });  
-});
-
-
-// GET product detail
-router.get("/product/:id", function(req, res) 
-{
-    session = req.session;
-    
-    request({
-        url: "http://localhost:49822/api/artigos/" + req.params.id,
-        method: "GET",
-        json: true
-    },
-    function(error, response, body) {        
-        if (body === undefined) {
-            res.status(500);
-            res.render('error', {utils: utils, message: "Product not found!", error: {}});
-        }
-        else {
-            res.render("product-detail", {utils: utils, session: session, product: body});
-        }       
-    }); 
 });
 
 
 // GET login
 router.get("/login", function(req, res) 
 {
-    res.render("login", {utils: utils});        
+    res.render("login", {
+        utils: utils.globals,
+        session: req.session,
+        alert: utils.handleAlerts(req)
+    });        
 });
 
 
 // POST login
 router.post("/login", function(req, res) 
 {
-    if (req.session.username) {
-        res.send("Already logged in!");
+    var session = req.session;
+    var username = req.body.username;
+    var password = req.body.password;
+    
+    if (session.username) {
+        session.alert = "Already logged in!";
+        res.redirect("/login");
     }
-    else if (req.body.username === undefined) {
-        res.send("Please stop messing around!");   
+    else if (username === undefined || password === undefined) {
+        session.alert = "Please complete all fields!";
+        res.redirect("/");
+    }
+    else if (username === password) {
+        session.alert = "Login successful!";
+        session.username = username;
+        res.redirect("/");
     }
     else {
-        req.session.username = req.body.username;
-        res.redirect("/");
+        session.alert = "Wrong username or password!";
+        res.redirect("/login");
     }
 });
 

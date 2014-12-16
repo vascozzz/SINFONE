@@ -1,3 +1,26 @@
+<div class="jumbotron">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        Shopping Cart
+        <span class="caret"></span>
+        </button>
+             
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            {{#each session.cart}}
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">
+                        {{this.DescArtigo}} - {{this.pvp1}} - {{this.quantity}}
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    
+    {{#each session.cart}}
+         {{this.DescArtigo}} - {{this.pvp1}} - {{this.quantity}} <br/>
+    {{/each}}
+</div>
+
 <footer id="footer"><!--Footer-->
     <div class="footer-top">
         <div class="container">

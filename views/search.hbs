@@ -9,7 +9,7 @@
                     <h2 class="title text-center">Featured Items</h2>
                     
                     {{#each products}}
-                         {{DescArtigo}} - {{pvp1}} <br/>
+                         {{DescArtigo}} - {{pvp1}}  - {{SubFamilia}} - {{Marca}} - {{Modelo}} - {{Operadora}} - {{Stock}} <br/>
                     {{/each}} 
                     
                     <hr/>
@@ -24,6 +24,22 @@
                     
                     {{#if search.max}}
                         <i> Filtering by max: {{search.max}} </i> <br/>
+                    {{/if}}
+                    
+                    {{#if search.fam}}
+                        <i> Filtering by family: {{search.fam}} </i> <br/>
+                    {{/if}}
+                    
+                    {{#if search.sub}}
+                        <i> Filtering by subfamily: {{search.sub}} </i> <br/>
+                    {{/if}}
+                    
+                    {{#if search.brand}}
+                        <i> Filtering by brand: {{search.brand}} </i> <br/>
+                    {{/if}}
+                    
+                    {{#if search.model}}
+                        <i> Filtering by max: {{search.model}} </i> <br/>
                     {{/if}}
                 </div>
             </div>
