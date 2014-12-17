@@ -59,9 +59,14 @@
                                 </button>
                             </span>
                             
-                            <!--specific details-->
-                            <p><b>Availability:</b> In Stock</p>
+                            <!--specific details-->                            
                             <p><b>Condition:</b> New</p>
+
+                            {{#if stock}} 
+                                <p><b>Availability:</b> In Stock: {{product.Stock}} </p>
+                            {{else}}
+                                <p><b>Availability:</b> SOLD OUT </p>
+                            {{/if}}
                             
                             <a href=""><img src="{{utils.root}}images/product-details/share.png" class="share img-responsive"  alt="" /></a>
                         </div><!--/product-information-->

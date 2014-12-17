@@ -8,7 +8,7 @@ var utils = require('../handlers/utils.js');
 router.get("/search", function(req, res) 
 {    
     request({
-        url: "http://localhost:49822/api/artigos",
+        url: utils.globals.api + "artigos",
         method: "GET",
         json: true
     },
@@ -16,12 +16,12 @@ router.get("/search", function(req, res)
         var products = [];
           
         var q = req.query.q;
-        var min = req.query.min;
-        var max = req.query.max;
         var fam = req.query.fam;
         var sub = req.query.sub;
         var brand = req.query.brand;
         var model = req.query.model;
+        var min = req.query.min;
+        var max = req.query.max;
         
         for (var i = 0; i < body.length; i++) {
         
@@ -30,11 +30,19 @@ router.get("/search", function(req, res)
                 continue;
             }
             
+            if (fam && !utils.containsString(body[i].Familia, fam)) {
+                continue;
+            }
+            
             if (sub && !utils.containsString(body[i].SubFamilia, sub)) {
                 continue;
             }
                 
             if (brand && !utils.containsString(body[i].Marca, brand)) {
+                continue;
+            }
+            
+            if (model && !utils.containsString(body[i].Modelo, model)) {
                 continue;
             }
                 
@@ -81,7 +89,7 @@ router.post("/add_to_cart", function(req, res)
 
     //Get product info
     request({
-        url: "http://localhost:49822/api/artigos/" + product_id,
+        url: utils.globals.api + "artigos/" + product_id,
         method: "GET",
         json: true
     },
@@ -109,7 +117,7 @@ router.post("/add_to_cart", function(req, res)
 router.get("/:id", function(req, res) 
 { 
     request({
-        url: "http://localhost:49822/api/artigos/" + req.params.id,
+        url: utils.globals.api + "artigos/" + req.params.id,
         method: "GET",
         json: true
     },

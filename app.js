@@ -17,6 +17,14 @@ app.set('view engine', 'hbs');
 // register partials
 hbs.registerPartials('./views/partials/');
 
+// register helpers
+hbs.registerHelper('equals', function(v1, v2, options) {
+  if(v1 === v2) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
+
 // set app.locals (template globals) and register them on hbs
 app.locals.server_root = "http://localhost:3000";
 
@@ -31,7 +39,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'outono',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        maxAge: 3600000 // 60 * 60 * 1000 (one hour)
+    }
 }));
 
 // routes

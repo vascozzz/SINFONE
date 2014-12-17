@@ -5,8 +5,8 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> +351 918 164 143</a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> support@sinfone.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -61,14 +61,30 @@
                         <ul class="nav navbar-nav">                         
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            
+
+                            <li class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i> Cart
+                                <span class="caret"></span>
+                                </button>
+
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    {{#each session.cart}}
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="#">
+                                                {{this.DescArtigo}} - {{this.pvp1}} - {{this.quantity}}
+                                            </a>
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            </li>
+
                             {{#if session.username}}
                                 <li><a href="#"><i class="fa fa-user"></i> {{session.username}}</a></li>
                                 <li><a href="{{utils.root}}logout"><i class="fa fa-lock"></i> Logout</a></li>
                             
-                                {{else}}
-                                    <li><a href="{{utils.root}}login"><i class="fa fa-lock"></i> Login</a></li>
+                            {{else}}
+                                <li><a href="{{utils.root}}login"><i class="fa fa-lock"></i> Login</a></li>
                             {{/if}}
                         </ul>
                     </div>

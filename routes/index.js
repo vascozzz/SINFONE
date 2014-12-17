@@ -14,8 +14,10 @@ var utils = require('../handlers/utils.js');
 // GET homepage
 router.get("/", function(req, res) 
 {    
+    console.log(req.session.cookie);
+    
     request({
-        url: "http://localhost:49822/api/artigos",
+        url: utils.globals.api + "artigos",
         method: "GET",
         json: true
     },
