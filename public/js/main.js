@@ -28,3 +28,47 @@ $(document).ready(function(){
 		});
 	});
 });
+
+$(document).on("click", ".add-to-cart-inline", function(event) 
+{
+    event.preventDefault();
+
+    var add_button = $(this);
+    
+    var action = add_button.data('action');
+    var product_id = add_button.data('id');
+    var quantity = 1;
+    
+    // disable button as soon as we send a request
+    add_button.removeClass("add-to-cart-inline");
+    add_button.text('Added to cart!');
+    
+    $.ajax({
+        type: 'POST',
+        url: action,
+        data: JSON.stringify({"product_id": product_id, "product_quantity": quantity}),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(data) { 
+            console.log(data);
+            
+            var cart_dropdown = $("#cart-dropdown");
+            var product = "";
+            
+            product += "<li role='presentation'>";
+            product += "<a style='color: #FE980F;'> Product added! </a>";
+            product += "</li>";
+
+            cart_dropdown.append(product);
+        }
+    });
+});
+
+function printArea(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+}

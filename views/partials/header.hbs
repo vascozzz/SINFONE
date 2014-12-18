@@ -59,14 +59,13 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
+                            <li><a href="{{utils.root}}products"><i class="fa fa-mobile"></i>Phones</a></li>
                             
                             {{#if session.username}}
                                 <li><a href="{{utils.root}}history"><i class="fa fa-book"></i> History</a></li>
                             {{/if}}
-
-                            <li><a href="{{utils.root}}products"><i class="fa fa-mobile"></i>Phones</a></li>
+                            
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="{{utils.root}}checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 
                             <li class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="cart-dropdown-btn" data-toggle="dropdown" aria-expanded="true">
@@ -83,7 +82,7 @@
                                     {{#each session.cart}}
                                         <li role="presentation">
                                             <a href="{{../utils.root}}products/{{this.CodArtigo}}" role="menuitem" tabindex="-1">
-                                                {{this.DescArtigo}} - {{this.pvp1}} x {{this.quantity}}
+                                                <strong>{{this.DescArtigo}}</strong> ({{this.pvp1}} €) x <strong>{{this.quantity}}</strong>
                                             </a>
                                         </li>
                                     {{/each}}
@@ -120,7 +119,7 @@
                     <div class="search_box pull-right">
                         <form action="{{utils.root}}products/search" method="get">
                             {{#if search.q}}
-                                <input type="text" placeholder="{{search.q}}" name="q" required/>
+                                <input type="text" placeholder="{{search.q}}" name="q" {{#if search.q}}value='{{search.q}}'{{/if}} required/>
                             {{else}}
                                 <input type="text" placeholder="Search..." name="q" required/>
                             {{/if}}
@@ -134,14 +133,16 @@
     </div><!--/header-bottom-->
 </header><!--/header-->
 
-<div class="container alerts">
-    {{#if alert}}
-        <div class="alert alert-info alert-dismissable" role="alert"> 
-            <strong>{{alert}}</strong>
-            <button type="button" class="close" data-dismiss="alert">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-        </div>
-    {{/if}}
+<div class="container">
+    <div class="alerts">
+        {{#if alert}}
+            <div class="alert alert-info alert-dismissable" role="alert"> 
+                <strong>{{alert}}</strong>
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+        {{/if}}
+    </div>
 </div>

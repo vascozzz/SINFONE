@@ -27,7 +27,7 @@ $(document).on("click", "#add-to-cart", function()
 
             cart_dropdown.append(product);
             
-            var alerts = $(".container.alerts");
+            var alerts = $(".alerts");
             var alert = "";
             
             alert += '<div class="alert alert-info alert-dismissable" role="alert">';

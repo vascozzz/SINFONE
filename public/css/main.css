@@ -2576,7 +2576,24 @@ h2.title {
     color: rgba(255,255,255,0.9);
 }
 
+#cart-dropdown-btn
+{
+    border: none;
+    padding: 0px;
+    margin-top: 10px;
+}
+
 .recommended_items .title
 {
     margin-top: 0px;   
+}
+
+.add-to-cart-inline
+{
+    cursor: pointer;
+}
+
+.btn-print
+{
+    margin-bottom: 20px;
 }

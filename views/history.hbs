@@ -20,27 +20,30 @@
                 </thead>
                 <tbody>
                     {{#each history}}
-                    <tr>
-                        <td class="cart_description">
-                             <h4><a href="">{{id}}</a></h4>
-                        </td>
-                        <td class="cart_description">
-                        </td>
-                        <td class="cart_price">
-                        </td>
-                        <td class="cart_quantity">
-                            <p>{{Data}}</p>
-                        </td>
-                        <td class="cart_total">
-                        </td>
-                        <td class="cart_delete">
-                            <p class="cart_total_price">{{TotalMerc}}€</p>
-                        </td>
-                    </tr>
-                    {{/each}}
-                   
+                        <tr>
+                            <td class="cart_description">
+                                 <h4><a href="{{utils.root}}history/{{NumDoc}}">{{id}}</a></h4>
+                            </td>
+                            <td class="cart_description">
+                            </td>
+                            <td class="cart_price">
+                            </td>
+                            <td class="cart_quantity">
+                                <p>{{Data}}</p>
+                            </td>
+                            <td class="cart_total">
+                            </td>
+                            <td class="cart_delete">
+                                <p class="cart_total_price">{{TotalMerc}}€</p>
+                            </td>
+                        </tr>
+                    {{/each}}        
                 </tbody>
             </table>
+            
+            {{#unless history}} 
+                <h1 class="text-center"> You have made no purchases! </h1>
+            {{/unless}}
         </div>
     </div>
 </section>

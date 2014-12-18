@@ -1,0 +1,23 @@
+<div id="printable" class="container">
+    <p><strong>ID: </strong> {{history.id}}</p>
+    <p><strong>Entity: </strong>{{session.nome}}</p>
+    <p><strong>Invoice Number: </strong>{{history.NumDoc}}</p>
+    <p><strong>Date: </strong>{{history.Data}}</p>
+    <p><strong>Invoice Total: </strong>{{history.TotalMerc}}</p>
+    
+    <br/>
+    <p><strong>Products:</strong></p>
+    
+    {{#each history.LinhasDoc}}
+        <strong>Product ID: </strong> {{CodArtigo}} | 
+        <strong>Description: </strong> {{DescArtigo}} | 
+        <strong>Unit Price: </strong> {{PrecoUnitario}}€ | 
+        <strong>Quantity: </strong> {{Quantidade}} | 
+        <strong>Total: </strong> {{TotalLiquido}}
+        <br/>
+    {{/each}}
+</div>
+
+<div class="container">
+    <input class="btn btn-defaut get pull-right btn-print" type="button" onclick="printArea('printable')" value="Print Invoice">
+</div>

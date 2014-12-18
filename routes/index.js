@@ -141,6 +141,7 @@ router.post("/login", function(req, res)
                 session.alert = "Login successful!";
                 session.username = username;
                 session.cod = body.CodCliente;
+                session.nome = body.NomeCliente;
                 res.redirect("/");   
             }
             else {
@@ -170,17 +171,20 @@ router.get("/cart", function(req, res)
     session = req.session;
     cart = session.cart;
     
-    console.log(cart);
+    var total = 0;
     
-    if (cart) {
+    if (cart) 
+    {   
         for (var i = 0; i < cart.length; i++) {
             cart[i].total = cart[i].pvp1 * cart[i].quantity;
+            total += cart[i].total;
         }
     }
     
     res.render("cart", {
         utils: utils.globals,
         session: session,
+        total: total,
         alert: utils.handleAlerts(req)
     });
 });
@@ -189,6 +193,13 @@ router.get("/cart", function(req, res)
 // GET checkout (actually POST, later to be changed)
 router.get("/checkout", function(req, res)
 {
+    if(!req.session.username)
+    {
+        req.session.alert = "You must be logged in!";
+        res.redirect("/login");
+        return;
+    }
+    
     var cart = req.session.cart;
     
     if(!cart)
@@ -209,14 +220,12 @@ router.get("/checkout", function(req, res)
         
         products.push(product);
     }
-    
-        
+         
     var invoice = {
         "Entidade":req.session.cod,
         "LinhasDoc":products
     }
-    
-    
+
     request({
         headers: {'content-type' : 'application/json'},
         url: utils.globals.api + "docvenda",
@@ -233,11 +242,10 @@ router.get("/checkout", function(req, res)
         else
         {
             req.session.alert = "Your purchase has been successful!";
-            res.session.cart = null;
+            req.session.cart = null;
             res.redirect("/history");          
         }
     });  
 });
-
 
 module.exports = router;
