@@ -8,19 +8,19 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{utils.root}}images/product-details/1.jpg" alt="" />
+                            <img src="{{utils.root}}images/products/{{product.DescArtigo}}.jpg" alt="" />
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
 
                               <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
+                               <!--   <div class="carousel-inner">
                                     <div class="item active">
                                       <a href=""><img src="{{utils.root}}images/product-details/similar1.jpg" alt=""></a>
                                       <a href=""><img src="{{utils.root}}images/product-details/similar2.jpg" alt=""></a>
                                       <a href=""><img src="{{utils.root}}images/product-details/similar3.jpg" alt=""></a>
                                     </div>
-                                    <div class="item">
+                                  <div class="item">
                                       <a href=""><img src="{{utils.root}}images/product-details/similar1.jpg" alt=""></a>
                                       <a href=""><img src="{{utils.root}}images/product-details/similar2.jpg" alt=""></a>
                                       <a href=""><img src="{{utils.root}}images/product-details/similar3.jpg" alt=""></a>
@@ -29,9 +29,9 @@
                                       <a href=""><img src="{{utils.root}}images/product-details/similar1.jpg" alt=""></a>
                                       <a href=""><img src="{{utils.root}}images/product-details/similar2.jpg" alt=""></a>
                                       <a href=""><img src="{{utils.root}}images/product-details/similar3.jpg" alt=""></a>
-                                    </div>
+                                    </div> 
 
-                                </div>
+                                </div>-->
 
                               <!-- Controls -->
                               <a class="left item-control" href="#similar-product" data-slide="prev">
@@ -45,7 +45,11 @@
                     </div>
                     <div class="col-sm-7">
                         <div class="product-information"><!--/product-information-->
-                            <img src="{{utils.root}}images/product-details/new.jpg" class="newarrival" alt="" />
+                            
+                            {{#if product.Novidade}} 
+                                <img src="{{utils.root}}images/product-details/new.jpg" class="newarrival" alt="" />
+                            {{/if}}                      
+                            
                             <h2> {{product.DescArtigo}} </h2>
                             <p>Web ID: {{product.CodArtigo}} </p>
                             <img src="{{utils.root}}images/product-details/rating.png" alt="" />
@@ -62,8 +66,8 @@
                             <!--specific details-->                            
                             <p><b>Condition:</b> New</p>
 
-                            {{#if stock}} 
-                                <p><b>Availability:</b> In Stock: {{product.Stock}} </p>
+                            {{#if product.Stock}} 
+                                <p><b>Availability:</b> {{product.Stock}} in stock</p>
                             {{else}}
                                 <p><b>Availability:</b> SOLD OUT </p>
                             {{/if}}
@@ -169,9 +173,11 @@
 
                     </div>
                 </div><!--/category-tab-->
+                
+                <!--
 
-                <div class="recommended_items"><!--recommended_items-->
-                    <h2 class="title text-center">recommended items</h2>
+                <div class="recommended_items">
+                 <h2 class="title text-center">recommended items</h2>
 
                     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
@@ -259,7 +265,7 @@
                             <i class="fa fa-angle-right"></i>
                           </a>			
                     </div>
-                </div><!--/recommended_items-->
+                </div> -->
 
             </div>
         </div>

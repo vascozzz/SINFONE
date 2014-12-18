@@ -13,8 +13,8 @@
                         <div class="item active">
                             <div class="col-sm-6">
                                 <h1><span>SINF</span>ONE</h1>
-                                <h2>Free E-Commerce Template</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <h2>Best phones for the lowest prices!</h2>
+                                <p>Check out our immense variety of phones, you will surely find one that fits you! </p>
                                 <button type="button" class="btn btn-default get">Get it now</button>
                             </div>
                             <div class="col-sm-6">
@@ -38,7 +38,7 @@
                         <div class="item">
                             <div class="col-sm-6">
                                 <h1><span>SINF</span>ONE</h1>
-                                <h2>Free Ecommerce Template</h2>
+                                <h2>Best phones for the lowest prices!  </h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                                 <button type="button" class="btn btn-default get">Get it now</button>
                             </div>
@@ -68,12 +68,53 @@
         <div class="row">
             
             {{> sidebar}}
+            
+            <div class="col-sm-9 padding-right">               
+                <!--featured items-->
+                <div class="recommended_items">
+                    <h2 class="title text-center">Featured</h2>
 
-            <div class="col-sm-9 padding-right">        
-                <!--features_items-->
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                                {{#each featured}}                               
+                                    {{#mod @index 3}}
+                                        {{#equals @index 0}}
+                                        {{else}}
+                                            </div>
+                                        {{/equals}} 
+                                    {{/mod}} 
+                            
+                                    {{#mod @index 3}}
+                                       <div class="item {{#equals @index 0}} active {{/equals}}"> 
+                                    {{/mod}}
+                                            
+                                    <a href="{{utils.root}}products/{{CodArtigo}}" class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center featured">
+                                                    <img src="{{utils.root}}images/products/{{DescArtigo}}.jpg" alt="" />
+                                                    <h2> {{pvp1}} € </h2>
+                                                    <p> {{DescArtigo}} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>    
+                                {{/each}}
+                            </div>
+                        </div>
+                         <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                          </a>
+                          <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                          </a>			
+                    </div>
+                </div><!--/featured items-->
+            
+                <!--promo items-->
                 <div class="features_items">
-                    <h2 class="title text-center">Featured Items</h2>        
-                    {{#each products}}
+                    <h2 class="title text-center">On Sale!</h2>        
+                    {{#each promotions}}
                         <div class="col-sm-4">
                             <a href="{{utils.root}}products/{{CodArtigo}}" class="text-center">
                                 <h3 class="product-desc"> {{DescArtigo}} </h3>
@@ -97,112 +138,52 @@
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">
                                         <li><a href="#"><i class="fa fa-plus-square"></i>Add to cart</a></li>
+                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     {{/each}}                  
                 </div>
-                <!--/features_items-->
+                <!--/promo items-->
                 
-                <!--recommended_items-->
-                <div class="recommended_items">
-                    <h2 class="title text-center">recommended items</h2>
-
-                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="item active">	
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{utils.root}}images/home/recommend1.jpg" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
+                <!--new items-->
+                <div class="features_items">
+                    <h2 class="title text-center">New Items</h2>        
+                    {{#each news}}
+                        <div class="col-sm-4">
+                            <a href="{{utils.root}}products/{{CodArtigo}}" class="text-center">
+                                <h3 class="product-desc"> {{DescArtigo}} </h3>
+                            </a>
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="{{utils.root}}images/products/{{DescArtigo}}.jpg" alt="" />
+                                        <h2> {{pvp1}} € </h2>
+                                        <p> {{DescArtigo}} </p>
                                     </div>
+                                    <a href="{{utils.root}}products/{{CodArtigo}}">
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    {{#if Promocao}}
+                                        <img src="{{utils.root}}images/home/sale.png" class="new" alt="" />
+                                    {{/if}}
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{utils.root}}images/home/recommend2.jpg" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{utils.root}}images/home/recommend3.jpg" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">	
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{utils.root}}images/home/recommend1.jpg" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{utils.root}}images/home/recommend2.jpg" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{utils.root}}images/home/recommend3.jpg" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                <div class="choose">
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to cart</a></li>
+                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                         <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                          </a>
-                          <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                          </a>			
-                    </div>
-                </div><!--/recommended_items-->
-
+                    {{/each}}                  
+                </div>
+                <!--/items-->
             </div>
         </div>
     </div>

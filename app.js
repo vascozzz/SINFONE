@@ -25,6 +25,13 @@ hbs.registerHelper('equals', function(v1, v2, options) {
   return options.inverse(this);
 });
 
+hbs.registerHelper('mod', function(v1, v2, options) {
+  if(v1 % v2 == 0) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
+
 // set app.locals (template globals) and register them on hbs
 app.locals.server_root = "http://localhost:3000";
 
@@ -49,11 +56,11 @@ app.use(session({
 // routes
 var routes = require('./routes/index');
 var products = require('./routes/products');
-var users = require('./routes/users');
+var history = require('./routes/history');
 
 app.use('/', routes);
 app.use('/products', products);
-app.use('/users', users);
+app.use('/history', history);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

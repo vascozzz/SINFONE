@@ -80,20 +80,23 @@ router.get("/search", function(req, res)
 });
 
 
-// POST cart
+// POST add to cart
 router.post("/add_to_cart", function(req, res)
 {     
     var session = req.session;
     var product_id = req.body.product_id;
     var product_quantity = req.body.product_quantity;
 
-    //Get product info
     request({
         url: utils.globals.api + "artigos/" + product_id,
         method: "GET",
         json: true
     },
-    function(error, response, body) {        
+    function(error, response, body) {  
+        if (!body) {
+            return;
+        }
+        
         var product = {};
         
         product["CodArtigo"] = body.CodArtigo;
@@ -108,8 +111,20 @@ router.post("/add_to_cart", function(req, res)
         session.cart.push(product);
        
         res.contentType("json");
-        res.send(JSON.stringify(session.cart));
+        res.send(JSON.stringify(["OK"]));
     });
+});
+
+
+// POST clear cart
+router.post("/clear_cart", function(req, res)
+{     
+    var session = req.session;
+    
+    // clear cart
+    session.cart = null;
+    
+    res.redirect("/cart");
 });
 
 
@@ -121,9 +136,9 @@ router.get("/:id", function(req, res)
         method: "GET",
         json: true
     },
-    function(error, response, body) {        
-        if (body === undefined) {
-            res.status(500);
+    function(error, response, body) {
+        if (response.statusCode != 200) {
+            res.status(404);
             res.render("error", {
                 utils: utils.globals, 
                 session: req.session,
@@ -140,6 +155,26 @@ router.get("/:id", function(req, res)
             });
         }       
     }); 
+});
+
+
+// GET products
+router.get("/", function(req, res)
+{
+    request({
+        url: utils.globals.api + "artigos",
+        method: "GET",
+        json: true
+    },
+    function(error, response, body) {        
+        res.render("products", {
+            utils: utils.globals, 
+            session: req.session, 
+            alert: utils.handleAlerts(req),
+            products: body
+        });
+        
+    });  
 });
 
 module.exports = router;

@@ -1,0 +1,46 @@
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+              <li><a href="{{utils.root}}">Home</a></li>
+              <li class="active">History</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Reference</td>
+                        <td class="description"></td>
+                        <td class="price"></td>
+                        <td class="quantity">Date</td>
+                        <td ></td>
+                        <td class="total">Total</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each history}}
+                    <tr>
+                        <td class="cart_description">
+                             <h4><a href="">{{id}}</a></h4>
+                        </td>
+                        <td class="cart_description">
+                        </td>
+                        <td class="cart_price">
+                        </td>
+                        <td class="cart_quantity">
+                            <p>{{Data}}</p>
+                        </td>
+                        <td class="cart_total">
+                        </td>
+                        <td class="cart_delete">
+                            <p class="cart_total_price">{{TotalMerc}}€</p>
+                        </td>
+                    </tr>
+                    {{/each}}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
